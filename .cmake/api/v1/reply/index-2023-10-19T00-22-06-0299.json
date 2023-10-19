@@ -1,0 +1,28 @@
+{
+	"cmake" : 
+	{
+		"generator" : 
+		{
+			"multiConfig" : false,
+			"name" : "Unix Makefiles"
+		},
+		"paths" : 
+		{
+			"cmake" : "/opt/homebrew/Cellar/cmake/3.26.4/bin/cmake",
+			"cpack" : "/opt/homebrew/Cellar/cmake/3.26.4/bin/cpack",
+			"ctest" : "/opt/homebrew/Cellar/cmake/3.26.4/bin/ctest",
+			"root" : "/opt/homebrew/Cellar/cmake/3.26.4/share/cmake"
+		},
+		"version" : 
+		{
+			"isDirty" : false,
+			"major" : 3,
+			"minor" : 26,
+			"patch" : 4,
+			"string" : "3.26.4",
+			"suffix" : ""
+		}
+	},
+	"objects" : [],
+	"reply" : {}
+}

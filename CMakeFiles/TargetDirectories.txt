@@ -1,0 +1,3 @@
+/Users/ericli/Documents/ThetaData/CPP_API_Wrapper/CMakeFiles/thetaData_cpp_wrapper.dir
+/Users/ericli/Documents/ThetaData/CPP_API_Wrapper/CMakeFiles/edit_cache.dir
+/Users/ericli/Documents/ThetaData/CPP_API_Wrapper/CMakeFiles/rebuild_cache.dir

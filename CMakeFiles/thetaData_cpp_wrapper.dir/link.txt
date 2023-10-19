@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++ -g -Wall -std=c++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/thetaData_cpp_wrapper.dir/main.cpp.o -o thetaData_cpp_wrapper  -lcurl 
