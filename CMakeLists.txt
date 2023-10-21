@@ -10,6 +10,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall -std=c++17")
  
 add_executable(thetaData_cpp_wrapper
 main.cpp
+client.cpp
 )
  
 #link curl and curlcpp

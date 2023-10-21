@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.o"
+  "CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.o.d"
   "CMakeFiles/thetaData_cpp_wrapper.dir/main.cpp.o"
   "CMakeFiles/thetaData_cpp_wrapper.dir/main.cpp.o.d"
   "thetaData_cpp_wrapper"

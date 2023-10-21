@@ -129,6 +129,30 @@ thetaData_cpp_wrapper/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/thetaData_cpp_wrapper.dir/build.make CMakeFiles/thetaData_cpp_wrapper.dir/build
 .PHONY : thetaData_cpp_wrapper/fast
 
+client.o: client.cpp.o
+.PHONY : client.o
+
+# target to build an object file
+client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/thetaData_cpp_wrapper.dir/build.make CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.o
+.PHONY : client.cpp.o
+
+client.i: client.cpp.i
+.PHONY : client.i
+
+# target to preprocess a source file
+client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/thetaData_cpp_wrapper.dir/build.make CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.i
+.PHONY : client.cpp.i
+
+client.s: client.cpp.s
+.PHONY : client.s
+
+# target to generate assembly for a file
+client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/thetaData_cpp_wrapper.dir/build.make CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.s
+.PHONY : client.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... thetaData_cpp_wrapper"
+	@echo "... client.o"
+	@echo "... client.i"
+	@echo "... client.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
