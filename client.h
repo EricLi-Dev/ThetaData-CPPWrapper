@@ -11,8 +11,8 @@ class ThetaClient{
     private:
         std::string client_username;
         std::string client_passwd;
+        std::string endpoint = "http://127.0.0.1:25510/";
         CURL *curl;
-        std::string endpoint;
 
     public:
         ThetaClient(std::string username, std::string passwd);

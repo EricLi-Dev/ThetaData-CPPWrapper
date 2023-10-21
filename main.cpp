@@ -7,7 +7,7 @@
 int main(void)
 {
     ThetaClient client = ThetaClient("", "");
-    int res = client.get_hist_stock("", "", "", "");
+    int res = client.get_hist_stock("EOD", "AAPL", "20220901", "20220915");
 //    CURL *curl;
 //    CURLcode res;
 //    std::string readBuffer;

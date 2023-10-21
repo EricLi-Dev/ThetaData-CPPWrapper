@@ -32,9 +32,23 @@ int ThetaClient::get_hist_stock(
      */
 
     CURLcode res;
+    std::string tags = "hist/stock/eod";
+
+    // format data
+    std::string rootTag         = "root=" + root;
+    std::string startDateTag    = "start_date=" + startDate;
+    std::string endDateTag      = "end_date=" + endDate;
+    std::string endpoint        = this->endpoint +
+                                    tags          + "?" +
+                                    rootTag       + "&" +
+                                    startDateTag  + "&" +
+                                    endDateTag;
+    std::cout << endpoint << std::endl;
+
+    // send request
     if(this->curl) {
         curl_easy_setopt(this->curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(this->curl, CURLOPT_URL, "http://127.0.0.1:25510/hist/stock/eod?root=AAPL&start_date=20220901&end_date=20220915");
+        curl_easy_setopt(this->curl, CURLOPT_URL, endpoint.c_str());
 
         struct curl_slist *headers = NULL;
         headers = curl_slist_append(headers, "Accept: application/json");
