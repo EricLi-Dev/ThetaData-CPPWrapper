@@ -33,9 +33,27 @@ class ThetaClient{
          *
          * @param req:       The request type
          * @param root:      The root symbol
-         * @param startDate: The start date range
-         * @param endDate:   The end date range
+         * @param startDate: The start date range as YYYYMMDD
+         * @param endDate:   The end date range as YYYYMMDD
          */
 
+        int get_hist_option(
+                std::string req,
+                std::string root,
+                std::string exp,
+                int strike,
+                std::string right,
+                std::string startDate,
+                std::string endDate);
+        /*
+         * Get historical option data
+         *
+         * @param req:       The request type
+         * @param root:      The root symbol
+         * @param exp:       The expiration of the option
+         * @param strike:    The strike price 
+         * @param startDate: The start date range as YYYYMMDD
+         * @param endDate:   The end date range as YYYYMMDD
+         */
 };
 
