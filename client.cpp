@@ -90,7 +90,6 @@ int ThetaClient::get_hist_option(
     std::string tags = "hist/option/eod";
 
     // format data
-    // http://127.0.0.1:25510/hist/option/eod?root=AAPL&start_date=20220901&end_date=20220915&strike=140000&exp=20220930&right=C"
     std::string rootTag         = "root=" + root;
     std::string expTag          = "exp=" + exp;
     std::string strikeTag       = "strike=" + std::to_string(int(strike / 0.001)); // per docs. 1/10th of a cent
