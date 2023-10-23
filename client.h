@@ -12,7 +12,6 @@ class ThetaClient{
         std::string client_username;
         std::string client_passwd;
         std::string endpoint = "http://127.0.0.1:25510/";
-        CURL *curl;
 
     public:
         ThetaClient(std::string username, std::string passwd);
@@ -28,18 +27,36 @@ class ThetaClient{
          * Destructor of object
          */
 
+        int send_curl_request(CURL *curl,
+                std::string &endpoint,
+                std::string &readBuffer);
+        /*
+         * Sends the curl request to the endpoint and saves data to readBuffer
+         *
+         * @param curl:         pointer to curl_easy_init()
+         * @param endpoint:     endpoint to send request
+         * @param readBuffer:   reference to string to save data
+         */
+
         void start();
         /*
          * Start ThetaTerminal on separate thread
          */
-        
-        int list_roots(std::string sec);
+
+        int list_roots(std::string sec, std::string &readBuffer);
+        /*
+         * List roots (symbols, tickers, etc.) 
+         * Returns all traded roots for a given security type (i.e. stock or option)
+         *
+         * @param sec:      security type -- "Stock" or "Option"
+         */
 
         int get_hist_stock(
                 std::string req,
                 std::string root,
                 std::string startDate,
-                std::string endDate);
+                std::string endDate,
+                std::string &readBuffer);
         /*
          * Get historical stock data
          *
@@ -56,7 +73,8 @@ class ThetaClient{
                 int strike,
                 std::string right,
                 std::string startDate,
-                std::string endDate);
+                std::string endDate,
+                std::string &readBuffer);
         /*
          * Get historical option data
          *

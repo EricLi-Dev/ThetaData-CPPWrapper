@@ -7,7 +7,7 @@ ThetaClient::ThetaClient(
         std::string passwd)
 {
     /*
-     * Construct a client instance to interact with market datao
+     * Construct a client instance to interact with market data
      *
      * @param username: ThetaData email. Can be 'default' if using free data
      * @param passwd:   ThetaData password. Can be 'default' if using free data
@@ -15,7 +15,6 @@ ThetaClient::ThetaClient(
 
     this->client_username = username;
     this->client_passwd = passwd;
-    this->curl = curl_easy_init();
 
     // Start ThetaTerminal
     //std::cout << "starting thread" << std::endl;
@@ -33,12 +32,67 @@ ThetaClient::ThetaClient(
 ThetaClient::~ThetaClient(){}
 
 void ThetaClient::start(){
+    /*
+     * Start ThetaTerminal thread
+     */
+
     std::cout << "starting ThetaTerminal" << std::endl;
     std::string cmd = "java -jar ../ThetaTerminal.jar " + this->client_username + " " + this->client_passwd; 
     system(cmd.c_str());
 }
 
-int ThetaClient::list_roots(std::string sec)
+static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
+{
+    /*
+     * Callback function passed to curl function to store data into readBuffer string
+     * https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
+     */
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
+
+int ThetaClient::send_curl_request(CURL *curl, std::string &endpoint, std::string &readBuffer)
+{
+    /*
+     * Sends the curl request to the endpoint and saves data to readBuffer
+     *
+     * @param curl:         pointer to curl_easy_init()
+     * @param endpoint:     endpoint to send request
+     * @param readBuffer:   reference to string to save data
+     */
+
+    // Send request
+    if(curl) {
+        // Set GET request to endpoint
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_easy_setopt(curl, CURLOPT_URL, endpoint.c_str());
+        
+        // Feed headers into request
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "Accept: application/json");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        
+        // Feed callback function
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        // Feed string to save data to
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+
+        // Perform the request
+        CURLcode res = curl_easy_perform(curl);
+
+        // Always cleanup
+        curl_easy_cleanup(curl);
+        
+        if (res == CURLE_OK){
+            return 0;
+        }
+
+    }
+    return 1;
+
+}
+
+int ThetaClient::list_roots(std::string sec, std::string& readBuffer)
 {
     /*
      * List roots (symbols, tickers, etc.) 
@@ -47,44 +101,26 @@ int ThetaClient::list_roots(std::string sec)
      * @param sec:      security type -- "Stock" or "Option"
      */
 
-
     std::string tags = "list/roots";
 
     // format data
     std::string secTag      = "sec=" + sec;
     std::string endpoint    = this->endpoint +
-                                tags         + "?" +
-                                secTag;
+        tags + "?" +
+        secTag;
     std::cout << endpoint << std::endl;
-
-    // send request
-    if(this->curl) {
-        CURLcode res;
-        curl_easy_setopt(this->curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(this->curl, CURLOPT_URL, endpoint.c_str());
-
-        struct curl_slist *headers = NULL;
-        headers = curl_slist_append(headers, "Accept: application/json");
-        curl_easy_setopt(this->curl, CURLOPT_HTTPHEADER, headers);
-
-        res = curl_easy_perform(this->curl);
-
-        // always cleanup
-        curl_easy_cleanup(this->curl);
-        
-        if (res == CURLE_OK){
-            return 0;
-        }
-
-    }
-    return 1;
+    
+    CURL *curl = curl_easy_init();
+    return send_curl_request(curl, endpoint, readBuffer); 
 }
+
 
 int ThetaClient::get_hist_stock(
         std::string req,
         std::string root,
         std::string startDate,
-        std::string endDate)
+        std::string endDate,
+        std::string &readBuffer)
 {
     /*
      * Get historical stock data
@@ -95,7 +131,6 @@ int ThetaClient::get_hist_stock(
      * @param endDate:   The end date range
      */
 
-    CURLcode res;
     std::string tags = "hist/stock/eod";
 
     // format data
@@ -109,25 +144,8 @@ int ThetaClient::get_hist_stock(
         endDateTag;
     std::cout << endpoint << std::endl;
 
-    // send request
-    if(this->curl) {
-        curl_easy_setopt(this->curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(this->curl, CURLOPT_URL, endpoint.c_str());
-
-        struct curl_slist *headers = NULL;
-        headers = curl_slist_append(headers, "Accept: application/json");
-        curl_easy_setopt(this->curl, CURLOPT_HTTPHEADER, headers);
-
-        res = curl_easy_perform(this->curl);
-        
-        // always cleanup
-        curl_easy_cleanup(this->curl);
-
-        if (res == CURLE_OK){
-            return 0;
-        }
-    }
-    return 1;
+    CURL *curl = curl_easy_init();
+    return send_curl_request(curl, endpoint, readBuffer); 
 }
 
 int ThetaClient::get_hist_option(
@@ -137,7 +155,8 @@ int ThetaClient::get_hist_option(
         int strike,
         std::string right,
         std::string startDate,
-        std::string endDate)
+        std::string endDate,
+        std::string &readBuffer)
 {
     /*
      * Get historical option data
@@ -170,29 +189,8 @@ int ThetaClient::get_hist_option(
         endDateTag;
     std::cout << endpoint << std::endl;
 
-    // send request
-    if(this->curl) {
-        CURLcode res;
-        curl_easy_setopt(this->curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(this->curl, CURLOPT_URL, endpoint.c_str());
+    CURL *curl = curl_easy_init();
+    return send_curl_request(curl, endpoint, readBuffer);
 
-        struct curl_slist *headers = NULL;
-        headers = curl_slist_append(headers, "Accept: application/json");
-        curl_easy_setopt(this->curl, CURLOPT_HTTPHEADER, headers);
-        
-        std::cout << "here" << std::endl;
-        res = curl_easy_perform(this->curl);
-        std::cout << "printing result" << std::endl;
-        std::cout << res << std::endl;
-
-        // always cleanup
-        curl_easy_cleanup(this->curl);
-        
-        if (res == CURLE_OK){
-            return 0;
-        }
-
-    }
-    return 1;
 }
 
