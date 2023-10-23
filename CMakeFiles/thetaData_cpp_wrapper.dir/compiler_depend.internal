@@ -435,6 +435,7 @@ CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/multi.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/urlapi.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/options.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/thread
 
 CMakeFiles/thetaData_cpp_wrapper.dir/main.cpp.o
  /Users/ericli/Documents/ThetaData/CPP_API_Wrapper/main.cpp

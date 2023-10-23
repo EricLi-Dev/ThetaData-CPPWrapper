@@ -433,7 +433,8 @@ CMakeFiles/thetaData_cpp_wrapper.dir/client.cpp.o: client.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/easy.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/multi.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/urlapi.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/options.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/curl/options.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/thread
 
 CMakeFiles/thetaData_cpp_wrapper.dir/main.cpp.o: main.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/iostream \
@@ -1489,6 +1490,8 @@ main.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/__algorithm/push_heap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/arm/_mcontext.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/thread:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/stddef.h:
 

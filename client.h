@@ -23,6 +23,18 @@ class ThetaClient{
          * @param passwd:   ThetaData password. Can be 'default' if using free data
          */
 
+        ~ThetaClient();
+        /*
+         * Destructor of object
+         */
+
+        void start();
+        /*
+         * Start ThetaTerminal on separate thread
+         */
+        
+        int list_roots(std::string sec);
+
         int get_hist_stock(
                 std::string req,
                 std::string root,
