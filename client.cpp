@@ -98,7 +98,8 @@ int ThetaClient::list_roots(std::string sec, std::string& readBuffer)
      * List roots (symbols, tickers, etc.) 
      * Returns all traded roots for a given security type (i.e. stock or option)
      *
-     * @param sec:      security type -- "Stock" or "Option"
+     * @param sec:          security type -- "Stock" or "Option"
+     * @param readBuffer:   reference to save data
      */
 
     std::string tags = "list/roots";
@@ -114,6 +115,53 @@ int ThetaClient::list_roots(std::string sec, std::string& readBuffer)
     return send_curl_request(curl, endpoint, readBuffer); 
 }
 
+int ThetaClient::list_expirations(std::string root, std::string& readBuffer)
+{
+    /*
+     * List expirations for a specific root (symbol, ticker, etc.) 
+     * Returns all expirations for an underlying root.
+     *
+     * @param root:          security type -- "Stock" or "Option"
+     * @param readBuffer:   reference to save data
+     */
+
+    std::string tags = "list/expirations";
+
+    // format data
+    std::string rootTag     = "root=" + root;
+    std::string endpoint    = this->endpoint +
+        tags + "?" +
+        rootTag;
+    std::cout << endpoint << std::endl;
+    
+    CURL *curl = curl_easy_init();
+    return send_curl_request(curl, endpoint, readBuffer); 
+}
+
+int ThetaClient::list_strikes(std::string root, std::string exp, std::string& readBuffer)
+{
+    /*
+     * List all strike prices that are traded on for an underlying root on a certain expiration date.
+     *
+     * @param root:         security type -- "Stock" or "Option"
+     * @param exp:          expiration date to list strikes for
+     * @param readBuffer:   reference to save data
+     */
+
+    std::string tags = "list/strikes";
+
+    // format data
+    std::string rootTag     = "root=" + root;
+    std::string expTag      = "exp=" + exp;
+    std::string endpoint    = this->endpoint +
+        tags    + "?" +
+        rootTag + "&" +
+        expTag;
+    std::cout << endpoint << std::endl;
+    
+    CURL *curl = curl_easy_init();
+    return send_curl_request(curl, endpoint, readBuffer); 
+}
 
 int ThetaClient::get_hist_stock(
         std::string req,
@@ -125,10 +173,11 @@ int ThetaClient::get_hist_stock(
     /*
      * Get historical stock data
      *
-     * @param req:       The request type
-     * @param root:      The root symbol
-     * @param startDate: The start date range
-     * @param endDate:   The end date range
+     * @param req:          The request type
+     * @param root:         The root symbol
+     * @param startDate:    The start date range
+     * @param endDate:      The end date range
+     * @param readBuffer:   reference to save data
      */
 
     std::string tags = "hist/stock/eod";
@@ -161,13 +210,14 @@ int ThetaClient::get_hist_option(
     /*
      * Get historical option data
      *
-     * @param req:       The request type
-     * @param root:      The root symbol
-     * @param exp:       The expiration of the option
-     * @param strike:    The strike price 
-     * @param right:     Call or Put, "C" or "P"
-     * @param startDate: The start date range as YYYYMMDD
-     * @param endDate:   The end date range as YYYYMMDD
+     * @param req:          The request type
+     * @param root:         The root symbol
+     * @param exp:          The expiration of the option
+     * @param strike:       The strike price 
+     * @param right:        Call or Put, "C" or "P"
+     * @param startDate:    The start date range as YYYYMMDD
+     * @param endDate:      The end date range as YYYYMMDD
+     * @param readBuffer:   reference to save data
      */
 
     std::string tags = "hist/option/eod";

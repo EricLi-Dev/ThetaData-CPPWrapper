@@ -51,6 +51,25 @@ class ThetaClient{
          * @param sec:      security type -- "Stock" or "Option"
          */
 
+        int list_expirations(std::string root, std::string& readBuffer);
+        /*
+         * List expirations for a specific root (symbol, ticker, etc.) 
+         * Returns all expirations for an underlying root.
+         *
+         * @param root:          security type -- "Stock" or "Option"
+         * @param readBuffer:   reference to save data
+         */
+
+        int list_strikes(std::string root, std::string exp, std::string& readBuffer);
+        /*
+         * List all strike prices that are traded on for an underlying root on a certain expiration date.
+         *
+         * @param root:         security type -- "Stock" or "Option"
+         * @param exp:          expiration date to list strikes for
+         * @param readBuffer:   reference to save data
+         */
+
+
         int get_hist_stock(
                 std::string req,
                 std::string root,
